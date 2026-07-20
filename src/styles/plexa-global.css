@@ -1,0 +1,183 @@
+/* ═══════════════════════════════════════════════════════════════
+   PLEXA ONE · DESIGN SYSTEM v5 · GLOBAL STYLES
+   Mirrors the css from apps/plexaone/docs/plexa-one-design-system-v5.html
+═══════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme='light'] {
+  /* Brand (fixed across themes) */
+  --plexa-mint: #00e5b0;
+  --plexa-mint-dim: #00c899;
+  --plexa-mint-faint: rgba(0, 229, 176, 0.1);
+  --plexa-mint-glow: rgba(0, 229, 176, 0.2);
+  --plexa-blue: #1a4bdb;
+  --plexa-blue-dim: #1540c0;
+  --plexa-blue-faint: rgba(26, 75, 219, 0.1);
+  --plexa-blue-glow: rgba(26, 75, 219, 0.2);
+  --plexa-warning: #f59e0b;
+  --plexa-warning-faint: rgba(245, 158, 11, 0.1);
+  --plexa-danger: #f5405a;
+  --plexa-danger-faint: rgba(245, 64, 90, 0.1);
+  --plexa-info-dark: #7da4ff;
+
+  /* Radius */
+  --plexa-r-xs: 3px;
+  --plexa-r-sm: 5px;
+  --plexa-r-md: 9px;
+  --plexa-r-lg: 12px;
+  --plexa-r-xl: 16px;
+  --plexa-r-2xl: 22px;
+  --plexa-r-pill: 9999px;
+
+  /* Spacing */
+  --plexa-s1: 4px;
+  --plexa-s2: 8px;
+  --plexa-s3: 12px;
+  --plexa-s4: 16px;
+  --plexa-s5: 20px;
+  --plexa-s6: 24px;
+  --plexa-s8: 32px;
+  --plexa-s10: 40px;
+  --plexa-s12: 48px;
+  --plexa-s16: 64px;
+  --plexa-s20: 80px;
+  --plexa-gap: 14px;
+
+  /* Fonts */
+  --plexa-font-display: 'Artific', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --plexa-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --plexa-font-mono: 'DM Mono', ui-monospace, Menlo, monospace;
+
+  /* Motion */
+  --plexa-t-fast: 120ms ease;
+  --plexa-t-base: 220ms ease;
+  --plexa-t-slow: 380ms ease;
+  --plexa-t-spring: 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --plexa-t-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Themed (light defaults) */
+  --plexa-primary: var(--plexa-blue);
+  --plexa-primary-dim: var(--plexa-blue-dim);
+  --plexa-primary-faint: var(--plexa-blue-faint);
+  --plexa-primary-glow: var(--plexa-blue-glow);
+  --plexa-success: #10b981;
+  --plexa-success-faint: rgba(16, 185, 129, 0.1);
+  --plexa-bg: #f8f9fc;
+  --plexa-bg2: #ffffff;
+  --plexa-bg3: #eef1f8;
+  --plexa-bg4: #e4e9f4;
+  --plexa-bg-raised: #ffffff;
+  --plexa-border: rgba(0, 0, 0, 0.07);
+  --plexa-border-mid: rgba(0, 0, 0, 0.12);
+  --plexa-border-hi: rgba(0, 0, 0, 0.22);
+  --plexa-text1: #060d1a;
+  --plexa-text2: #5a6e8a;
+  --plexa-text3: #a8b8cc;
+  --plexa-text-inv: #ffffff;
+  --plexa-dot-color: rgba(26, 75, 219, 0.12);
+  --plexa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+  --plexa-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.09);
+  --plexa-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.11);
+  --plexa-shadow-card: 0 8px 32px rgba(26, 75, 219, 0.1),
+    0 0 0 1px rgba(26, 75, 219, 0.15);
+  --plexa-overlay: rgba(0, 0, 0, 0.45);
+  --plexa-nav-bg: rgba(248, 249, 252, 0.85);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --plexa-primary: var(--plexa-mint);
+  --plexa-primary-dim: var(--plexa-mint-dim);
+  --plexa-primary-faint: var(--plexa-mint-faint);
+  --plexa-primary-glow: var(--plexa-mint-glow);
+  --plexa-success: #4ade80;
+  --plexa-success-faint: rgba(74, 222, 128, 0.1);
+  --plexa-bg: #060d1a;
+  --plexa-bg2: #0a1525;
+  --plexa-bg3: #0e1d33;
+  --plexa-bg4: #132440;
+  --plexa-bg-raised: #0c1830;
+  --plexa-border: rgba(255, 255, 255, 0.07);
+  --plexa-border-mid: rgba(255, 255, 255, 0.12);
+  --plexa-border-hi: rgba(255, 255, 255, 0.22);
+  --plexa-text1: #edf2ff;
+  --plexa-text2: #7a95b8;
+  --plexa-text3: #2e4d6a;
+  --plexa-text-inv: #060d1a;
+  --plexa-dot-color: rgba(0, 229, 176, 0.1);
+  --plexa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --plexa-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --plexa-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
+  --plexa-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 229, 176, 0.18);
+  --plexa-overlay: rgba(6, 13, 26, 0.92);
+  --plexa-nav-bg: rgba(6, 13, 26, 0.85);
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--plexa-font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  background: var(--plexa-bg);
+  color: var(--plexa-text1);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--plexa-t-slow), color var(--plexa-t-slow);
+  min-height: 100vh;
+}
+
+/* Dot matrix backdrop — fixed behind all content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle,
+      var(--plexa-dot-color) 1px,
+      transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+  transition: background-image var(--plexa-t-slow);
+}
+
+#root,
+.plexa-app-root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--plexa-border-mid);
+  border-radius: 9px;
+}
+
+::selection {
+  background: var(--plexa-primary-faint);
+  color: var(--plexa-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
