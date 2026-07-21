@@ -1,6 +1,8 @@
 import type { Preview, Decorator } from '@storybook/react';
-import { GlobalStyles } from '@mui/material';
+import { useGlobals } from '@storybook/preview-api';
+import { Box, Button, GlobalStyles, Stack, Typography } from '@mui/material';
 import { MemoryRouter } from 'react-router-dom';
+import { Moon, Sun } from 'lucide-react';
 import { YaoundeLogisThemeProvider } from '../src/theme/YaoundeLogisThemeProvider';
 import {
   primitiveColorsToRootStyleObject,
@@ -12,8 +14,9 @@ import { yaoundeLogisSurfacesToStyleObject } from '../src/tokens/yaoundelogis/su
 import type { YaoundeLogisThemeMode } from '../src/tokens/yaoundelogis/surface-tokens';
 import '../src/styles/yaoundelogis-global.css';
 
-const withYaoundeLogisTheme: Decorator = (Story, context) => {
-  const mode = (context.globals.theme as YaoundeLogisThemeMode) || 'light';
+function ThemeCanvasShell({ children }: { children: React.ReactNode }) {
+  const [globals, updateGlobals] = useGlobals();
+  const mode = ((globals.theme as YaoundeLogisThemeMode) || 'light') as YaoundeLogisThemeMode;
 
   const tokenStyles = {
     ':root': {
@@ -28,10 +31,56 @@ const withYaoundeLogisTheme: Decorator = (Story, context) => {
   return (
     <YaoundeLogisThemeProvider forcedMode={mode} storageKey="sb-yaoundelogis-theme">
       <GlobalStyles styles={tokenStyles} />
-      <Story />
+      <Box sx={{ minHeight: '100%', bgcolor: 'background.default', color: 'text.primary' }}>
+        <Box
+          sx={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 2,
+            px: 2,
+            py: 1,
+            borderBottom: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'background.paper',
+          }}
+        >
+          <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
+            Thème YaoundéLogis — {mode === 'dark' ? 'Sombre' : 'Clair'}
+          </Typography>
+          <Stack direction="row" spacing={1}>
+            <Button
+              size="small"
+              variant={mode === 'light' ? 'contained' : 'outlined'}
+              startIcon={<Sun size={14} />}
+              onClick={() => updateGlobals({ theme: 'light' })}
+            >
+              Clair
+            </Button>
+            <Button
+              size="small"
+              variant={mode === 'dark' ? 'contained' : 'outlined'}
+              startIcon={<Moon size={14} />}
+              onClick={() => updateGlobals({ theme: 'dark' })}
+            >
+              Sombre
+            </Button>
+          </Stack>
+        </Box>
+        {children}
+      </Box>
     </YaoundeLogisThemeProvider>
   );
-};
+}
+
+const withYaoundeLogisTheme: Decorator = (Story) => (
+  <ThemeCanvasShell>
+    <Story />
+  </ThemeCanvasShell>
+);
 
 const withRouter: Decorator = (Story) => (
   <MemoryRouter>
@@ -43,9 +92,10 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       description: 'Thème YaoundéLogis',
+      defaultValue: 'light',
       toolbar: {
         title: 'Thème',
-        icon: 'mirror',
+        icon: 'circlehollow',
         items: [
           { value: 'light', title: 'Clair', icon: 'sun' },
           { value: 'dark', title: 'Sombre', icon: 'moon' },
