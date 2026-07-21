@@ -26,26 +26,24 @@ function SemanticColorsDoc() {
   return (
     <div
       style={{
-        fontFamily: '"DM Sans", system-ui, sans-serif',
-        color: '#0f172a',
+        fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
+        color: '#0F3D2E',
         maxWidth: 1280,
       }}
     >
       <header style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}>
-          Semantic colors
+        <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px', color: '#0F3D2E' }}>
+          Couleurs sémantiques — YaoundéLogis
         </h1>
-        <p style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.6, color: '#475569' }}>
-          Token path: <code style={{ fontSize: 13 }}>property.role.tone.state</code>
-          — Property (text, icon, border, background), Role (primary, neutral,
-          negative, positive), Tone (accent, subtle), State (default + hover,
-          press, focus, disabled from the model).
+        <p style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.6, color: '#5C6B63' }}>
+          Chemin du token : <code style={{ fontSize: 13 }}>property.role.tone.state</code>
+          — Property (text, icon, border, background), Role (primary = vert marque, neutral,
+          negative, positive), Tone (accent, subtle), State (default + hover, press, focus, disabled).
         </p>
-        <p style={{ margin: 0, fontSize: 14, color: '#64748b' }}>
-          Role → hue: primary → {SEMANTIC_ROLE_HUE.primary}, neutral →{' '}
+        <p style={{ margin: 0, fontSize: 14, color: '#2E7D4E', fontWeight: 600 }}>
+          Rôle → teinte : primary → {SEMANTIC_ROLE_HUE.primary} (vert YaoundéLogis), neutral →{' '}
           {SEMANTIC_ROLE_HUE.neutral}, negative → {SEMANTIC_ROLE_HUE.negative},
-          positive → {SEMANTIC_ROLE_HUE.positive}. Values resolve to primitives;
-          disabled uses neutral gray regardless of role.
+          positive → {SEMANTIC_ROLE_HUE.positive}.
         </p>
       </header>
 
@@ -174,7 +172,7 @@ function SemanticColorsDoc() {
 }
 
 const meta: Meta<typeof SemanticColorsDoc> = {
-  title: 'Design System/Tokens/Colors/Semantic/Semantic colors',
+  title: 'YaoundéLogis/Tokens/Couleurs/Sémantiques',
   component: SemanticColorsDoc,
   parameters: {
     layout: 'padded',

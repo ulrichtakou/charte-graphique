@@ -25,7 +25,7 @@ import {
 
 const docShell: React.CSSProperties = {
   fontFamily: fontFamilies.sans,
-  color: '#0f172a',
+  color: '#0F3D2E',
   maxWidth: 720,
 };
 
@@ -34,12 +34,12 @@ const labelStyle: React.CSSProperties = {
   fontWeight: 600,
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
-  color: '#64748b',
+  color: '#5C6B63',
   marginBottom: 8,
 };
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Typography',
+  title: 'YaoundéLogis/Tokens/Typographie',
   parameters: {
     layout: 'padded',
     docs: {
@@ -56,7 +56,7 @@ export default meta;
 type Story = StoryObj;
 
 const specimenLine =
-  'The quick brown fox jumps over the lazy dog. 0123456789 Sparing UI.';
+  'Appartement 2 chambres à Jouvence — 120 000 FCFA / mois. Yaoundé.';
 
 export const FontFamilies: Story = {
   name: '1. Font families',
@@ -65,11 +65,10 @@ export const FontFamilies: Story = {
       <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 8px' }}>
         Font families
       </h2>
-      <p style={{ margin: '0 0 28px', color: '#475569', lineHeight: 1.6 }}>
-        UI uses <strong>sans</strong> for interface copy; <strong>mono</strong>{' '}
-        for code and technical strings. Below, each face listed in the token is
-        rendered in isolation (single face + generic fallback) so you can compare
-        DM Sans, system fonts, and mono stack members.
+      <p style={{ margin: '0 0 28px', color: '#5C6B63', lineHeight: 1.6 }}>
+        YaoundéLogis utilise <strong>Poppins</strong> pour toute l'interface.
+        La fonte <strong>mono</strong> est réservée aux valeurs techniques.
+        Chaque fonte est rendue isolément pour faciliter la validation visuelle.
       </p>
       <div style={{ marginBottom: 32 }}>
         <div style={labelStyle}>Sans — full stack (fontFamilies.sans)</div>
@@ -508,7 +507,7 @@ export const MonospaceCode: Story = {
           overflow: 'auto',
         }}
       >
-        {`import { fontFamilies, typeScale } from '@croki-digital/shared-ui';
+        {`import { fontFamilies, typeScale } from 'charte-graphique';
 
 export function Example() {
   return <p style={{ fontFamily: fontFamilies.sans }}>Hello</p>;

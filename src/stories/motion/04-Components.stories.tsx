@@ -16,7 +16,7 @@ const enter = motionPatterns.enter;
 const exit = motionPatterns.exit;
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Motion/04 Components',
+  title: 'YaoundéLogis/Tokens/Motion/04 Composants',
   decorators: [withMotionAccessibility],
   parameters: {
     docs: { disable: true },

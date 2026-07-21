@@ -13,7 +13,7 @@ import { SlidingBlock, StickyReplayToolbar, useReplayTrigger } from './motion-pl
 const pc = primitiveColors;
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Motion/01 Duration',
+  title: 'YaoundéLogis/Tokens/Motion/01 Durée',
   decorators: [withMotionAccessibility],
   parameters: {
     docs: { disable: true },
@@ -37,7 +37,7 @@ export const CompareDurations: Story = {
       <div
         style={{
           fontFamily:
-            '"DM Sans", system-ui, sans-serif',
+            'var(--yaoundelogis-font-family, Poppins, sans-serif)',
           color: pc.gray[900],
           maxWidth: 920,
         }}

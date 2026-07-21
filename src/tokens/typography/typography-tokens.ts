@@ -6,9 +6,9 @@ import type { CSSProperties } from 'react';
 import { primitiveColors } from '../colors/primitives/primitive-colors';
 
 export const fontFamilies = {
-  /** UI and body copy */
+  /** UI YaoundéLogis — Poppins */
   sans:
-    '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   /** Code, keys, technical strings */
   mono:
     'ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "Courier New", monospace',
@@ -223,14 +223,14 @@ export type TypographyResolveOptions = {
 
 /** Semantic text colors (hex), aligned with common UI states */
 export const textStateColors = {
-  primary: primitiveColors.gray[900],
+  primary: primitiveColors.gray[800],
   secondary: primitiveColors.gray[600],
-  link: primitiveColors.blue[600],
-  linkHover: primitiveColors.blue[700],
+  link: primitiveColors.green[600],
+  linkHover: primitiveColors.green[800],
   error: primitiveColors.red[600],
   warning: primitiveColors.orange[700],
   success: primitiveColors.green[700],
-  info: primitiveColors.cyan[700],
+  info: primitiveColors.gray[700],
   disabled: primitiveColors.gray[400],
 } as const;
 

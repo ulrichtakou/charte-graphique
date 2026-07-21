@@ -13,7 +13,7 @@ import { SlidingBlock, StickyReplayToolbar, useReplayTrigger } from './motion-pl
 const pc = primitiveColors;
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Motion/02 Easing',
+  title: 'YaoundéLogis/Tokens/Motion/02 Easing',
   decorators: [withMotionAccessibility],
   parameters: {
     docs: { disable: true },
@@ -36,7 +36,7 @@ export const CompareEasings: Story = {
     return (
       <div
         style={{
-          fontFamily: '"DM Sans", system-ui, sans-serif',
+          fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
           color: pc.gray[900],
           maxWidth: 920,
         }}

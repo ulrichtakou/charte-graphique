@@ -17,7 +17,7 @@ import {
 const pc = primitiveColors;
 
 const meta: Meta = {
-  title: 'Design System/Tokens/UI sizes',
+  title: 'YaoundéLogis/Tokens/Tailles UI',
   parameters: {
     layout: 'padded',
     docs: {

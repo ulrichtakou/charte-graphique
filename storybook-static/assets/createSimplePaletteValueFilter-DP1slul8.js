@@ -1,0 +1,1 @@
+function s(e){try{return e.matches(":focus-visible")}catch{}return!1}function n(e){return typeof e.main=="string"}function i(e,r=[]){if(!n(e))return!1;for(const t of r)if(!e.hasOwnProperty(t)||typeof e[t]!="string")return!1;return!0}function a(e=[]){return([,r])=>r&&i(r,e)}export{a as c,s as i};

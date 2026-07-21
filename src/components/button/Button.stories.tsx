@@ -29,7 +29,7 @@ function iconPx(density: ComponentHeightToken): number {
 }
 
 const shell: React.CSSProperties = {
-  fontFamily: 'system-ui, sans-serif',
+  fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
   maxWidth: '100%',
 };
 
@@ -123,7 +123,7 @@ function MatrixTable({
               style={{
                 position: 'sticky',
                 left: 0,
-                background: '#f8fafc',
+                background: '#F5F6F7',
                 zIndex: 1,
                 padding: 6,
                 textAlign: 'left',
@@ -145,7 +145,7 @@ function MatrixTable({
                 style={{
                   position: 'sticky',
                   left: 0,
-                  background: '#f8fafc',
+                  background: '#F5F6F7',
                   fontWeight: 600,
                   padding: 6,
                   textTransform: 'capitalize',

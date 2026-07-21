@@ -14,9 +14,8 @@ import {
 const pc = primitiveColors;
 
 const docShell: React.CSSProperties = {
-  fontFamily:
-    '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  color: pc.gray[900],
+  fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
+  color: pc.gray[800],
   maxWidth: 720,
 };
 
@@ -25,7 +24,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: 600,
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
-  color: pc.gray[500],
+  color: pc.gray[600],
   marginBottom: 8,
 };
 
@@ -40,7 +39,7 @@ const radiusUsage: Record<keyof typeof radii, string> = {
 };
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Radius',
+  title: 'YaoundéLogis/Tokens/Rayons',
   parameters: {
     layout: 'padded',
     docs: {
@@ -227,7 +226,7 @@ export const Usage: Story = {
           borderRadius: radii.sm,
         }}
       >
-        {`import { radii, nestedRadius, radiusRootStyleObject, radiusCssVar } from '@croki-digital/shared-ui';`}
+        {`import { radii, nestedRadius, radiusRootStyleObject, radiusCssVar } from 'charte-graphique';`}
       </code>
     </div>
   ),

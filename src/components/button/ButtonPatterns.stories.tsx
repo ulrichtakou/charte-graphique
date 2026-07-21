@@ -46,7 +46,7 @@ import { ToggleButton, ToggleButtonGroup } from './ToggleButton';
 const pc = primitiveColors;
 
 const shell: React.CSSProperties = {
-  fontFamily: 'system-ui, sans-serif',
+  fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
   maxWidth: '100%',
 };
 

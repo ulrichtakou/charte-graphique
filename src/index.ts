@@ -29,3 +29,4 @@ export * from './components/avatar';
 export * from './components/state-badge';
 export * from './components/classification-chip';
 export * from './components/detail';
+export * from './components/listing-status';

@@ -5,3 +5,4 @@ export * from './radius';
 export * from './ui-sizes';
 export * from './motion';
 export * from './plexa-one';
+export * from './yaoundelogis';

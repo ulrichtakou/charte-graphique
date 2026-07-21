@@ -1,6 +1,6 @@
 # charte-graphique
 
-Design system / charte graphique extrait de `@croki-digital/shared-ui`.
+Design system / charte graphique.
 
 ## Contenu
 

@@ -8,9 +8,8 @@ import {
 } from './spacing-tokens';
 
 const docShell: React.CSSProperties = {
-  fontFamily:
-    '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  color: '#0f172a',
+  fontFamily: 'var(--yaoundelogis-font-family, Poppins, sans-serif)',
+  color: '#0F3D2E',
   maxWidth: 720,
 };
 
@@ -19,12 +18,12 @@ const labelStyle: React.CSSProperties = {
   fontWeight: 600,
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
-  color: '#64748b',
+  color: '#5C6B63',
   marginBottom: 8,
 };
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Spacing',
+  title: 'YaoundéLogis/Tokens/Espacement',
   parameters: {
     layout: 'padded',
     docs: {

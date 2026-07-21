@@ -16,7 +16,7 @@ export default defineConfig({
     },
   },
   test: {
-    name: '@croki-digital/shared-ui',
+    name: 'charte-graphique',
     watch: false,
     globals: true,
     environment: 'jsdom',

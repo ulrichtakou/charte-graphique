@@ -26,7 +26,7 @@ const CSS_VAR_PREFIX = '--sparing-semantic';
 
 /** Role → primitive hue used for non-disabled tokens. */
 export const SEMANTIC_ROLE_HUE: SemanticRoleHueMap = {
-  primary: 'blue',
+  primary: 'green',
   neutral: 'gray',
   negative: 'red',
   positive: 'green',

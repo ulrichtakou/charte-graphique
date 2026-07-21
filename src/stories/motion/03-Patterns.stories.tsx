@@ -13,7 +13,7 @@ const exit = motionPatterns.exit;
 const layout = motionPatterns.layout;
 
 const meta: Meta = {
-  title: 'Design System/Tokens/Motion/03 Patterns',
+  title: 'YaoundéLogis/Tokens/Motion/03 Patterns',
   decorators: [withMotionAccessibility],
   parameters: {
     docs: { disable: true },
