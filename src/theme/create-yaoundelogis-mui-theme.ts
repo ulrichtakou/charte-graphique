@@ -1,11 +1,12 @@
 import { createTheme, type Theme } from '@mui/material/styles';
-import {
-  yaoundeLogisBrand,
-  yaoundeLogisSemantic,
-} from '../tokens/yaoundelogis/brand-foundation';
+import { yaoundeLogisBrand } from '../tokens/yaoundelogis/brand-foundation';
 import { yaoundeLogisFontFamily } from '../tokens/yaoundelogis/yaoundelogis-typography';
 import { fontWeights } from '../tokens/typography/typography-tokens';
 import { yaoundeLogisRadii } from '../tokens/yaoundelogis/yaoundelogis-radius';
+import {
+  yaoundeLogisSurfacesByMode,
+  type YaoundeLogisThemeMode,
+} from '../tokens/yaoundelogis/surface-tokens';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -13,6 +14,7 @@ declare module '@mui/material/styles' {
       gold: string;
       greenDark: string;
       cream: string;
+      section: string;
     };
   }
   interface PaletteOptions {
@@ -20,50 +22,62 @@ declare module '@mui/material/styles' {
       gold: string;
       greenDark: string;
       cream: string;
+      section?: string;
     };
   }
 }
 
-export function createYaoundeLogisMuiTheme(): Theme {
+export type CreateYaoundeLogisMuiThemeOptions = {
+  mode?: YaoundeLogisThemeMode;
+};
+
+export function createYaoundeLogisMuiTheme(
+  options: CreateYaoundeLogisMuiThemeOptions = {},
+): Theme {
+  const mode = options.mode ?? 'light';
+  const s = yaoundeLogisSurfacesByMode[mode];
+  const isDark = mode === 'dark';
+
   return createTheme({
     palette: {
-      mode: 'light',
+      mode,
       primary: {
-        main: yaoundeLogisBrand.green,
-        dark: yaoundeLogisBrand.greenDark,
-        light: '#4CAF6A',
-        contrastText: yaoundeLogisBrand.white,
+        main: s.primary,
+        dark: isDark ? yaoundeLogisBrand.green : yaoundeLogisBrand.greenDark,
+        light: isDark ? '#5CB578' : '#4CAF6A',
+        contrastText: s.primaryContrast,
       },
       secondary: {
-        main: yaoundeLogisBrand.gold,
-        contrastText: yaoundeLogisBrand.greenDark,
+        main: s.secondary,
+        contrastText: s.secondaryContrast,
       },
       success: {
-        main: yaoundeLogisBrand.green,
+        main: s.primary,
       },
       warning: {
         main: yaoundeLogisBrand.gold,
       },
       background: {
-        default: yaoundeLogisBrand.white,
-        paper: yaoundeLogisBrand.white,
+        default: s.bg,
+        paper: s.bgRaised,
       },
       text: {
-        primary: yaoundeLogisBrand.grayDark,
-        secondary: '#5C6B63',
+        primary: s.text,
+        secondary: s.textMuted,
       },
-      divider: yaoundeLogisBrand.border,
+      divider: s.border,
       yaounde: {
         gold: yaoundeLogisBrand.gold,
         greenDark: yaoundeLogisBrand.greenDark,
-        cream: yaoundeLogisBrand.cream,
+        cream: isDark ? s.bgCream : yaoundeLogisBrand.cream,
+        section: s.bgSection,
       },
     },
     typography: {
       fontFamily: yaoundeLogisFontFamily,
-      h1: { fontWeight: fontWeights.bold },
-      h2: { fontWeight: fontWeights.semibold },
-      h3: { fontWeight: fontWeights.semibold },
+      h1: { fontWeight: fontWeights.bold, color: s.heading },
+      h2: { fontWeight: fontWeights.semibold, color: s.heading },
+      h3: { fontWeight: fontWeights.semibold, color: s.heading },
       button: {
         textTransform: 'none',
         fontWeight: fontWeights.semibold,
@@ -73,6 +87,14 @@ export function createYaoundeLogisMuiTheme(): Theme {
       borderRadius: 8,
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            backgroundColor: s.bg,
+            color: s.text,
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
@@ -81,12 +103,13 @@ export function createYaoundeLogisMuiTheme(): Theme {
             '&:hover': { boxShadow: 'none' },
           },
           containedPrimary: {
-            backgroundColor: yaoundeLogisBrand.green,
-            '&:hover': { backgroundColor: yaoundeLogisBrand.greenDark },
+            backgroundColor: s.primary,
+            color: s.primaryContrast,
+            '&:hover': { backgroundColor: s.primaryHover },
           },
           outlined: {
-            borderColor: yaoundeLogisBrand.greenDark,
-            color: yaoundeLogisBrand.greenDark,
+            borderColor: isDark ? s.link : yaoundeLogisBrand.greenDark,
+            color: isDark ? s.link : yaoundeLogisBrand.greenDark,
           },
         },
       },
@@ -94,7 +117,9 @@ export function createYaoundeLogisMuiTheme(): Theme {
         styleOverrides: {
           root: {
             borderRadius: yaoundeLogisRadii.card,
-            boxShadow: '0 4px 20px rgba(15, 61, 46, 0.08)',
+            backgroundColor: s.bgRaised,
+            boxShadow: s.shadowCard,
+            border: isDark ? `1px solid ${s.border}` : undefined,
           },
         },
       },
@@ -102,7 +127,7 @@ export function createYaoundeLogisMuiTheme(): Theme {
         styleOverrides: {
           root: {
             borderRadius: yaoundeLogisRadii.input,
-            backgroundColor: yaoundeLogisBrand.grayLight,
+            backgroundColor: s.bgInput,
           },
         },
       },
@@ -114,8 +139,16 @@ export function createYaoundeLogisMuiTheme(): Theme {
       MuiLink: {
         styleOverrides: {
           root: {
-            color: yaoundeLogisSemantic.link,
+            color: s.link,
             fontWeight: fontWeights.medium,
+            '&:hover': { color: s.linkHover },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
           },
         },
       },
@@ -123,4 +156,8 @@ export function createYaoundeLogisMuiTheme(): Theme {
   });
 }
 
-export const yaoundeLogisTheme = createYaoundeLogisMuiTheme();
+export const yaoundeLogisLightTheme = createYaoundeLogisMuiTheme({ mode: 'light' });
+export const yaoundeLogisDarkTheme = createYaoundeLogisMuiTheme({ mode: 'dark' });
+
+/** @deprecated Préférer `yaoundeLogisLightTheme` */
+export const yaoundeLogisTheme = yaoundeLogisLightTheme;

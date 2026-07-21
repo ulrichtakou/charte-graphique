@@ -1,8 +1,9 @@
-import { Chip, type SxProps, type Theme } from '@mui/material';
+import { Chip, useTheme, type SxProps, type Theme } from '@mui/material';
 import {
   yaoundeLogisListingStatus,
   type YaoundeLogisListingStatusKey,
 } from '../../tokens/yaoundelogis/brand-foundation';
+import { yaoundeLogisListingStatusDark } from '../../tokens/yaoundelogis/surface-tokens';
 
 export type ListingStatusBadgeProps = {
   status: YaoundeLogisListingStatusKey;
@@ -13,7 +14,7 @@ export type ListingStatusBadgeProps = {
 };
 
 /**
- * Badge d’état d’annonce — calé sur la charte YaoundéLogis (pas les couleurs MUI génériques).
+ * Badge d’état d’annonce — clair / sombre selon le thème MUI actif.
  */
 export function ListingStatusBadge({
   status,
@@ -21,7 +22,11 @@ export function ListingStatusBadge({
   size = 'small',
   sx,
 }: ListingStatusBadgeProps) {
-  const token = yaoundeLogisListingStatus[status];
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const token = isDark
+    ? yaoundeLogisListingStatusDark[status]
+    : yaoundeLogisListingStatus[status];
   const text = label ?? token.label;
 
   return (

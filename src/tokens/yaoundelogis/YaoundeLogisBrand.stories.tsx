@@ -4,13 +4,11 @@ import {
   Button,
   Card,
   CardContent,
-  Chip,
-  CssBaseline,
   Link,
   Stack,
   TextField,
-  ThemeProvider,
   Typography,
+  useTheme,
 } from '@mui/material';
 import {
   Bed,
@@ -32,11 +30,14 @@ import {
 } from './yaoundelogis-typography';
 import { fontWeights } from '../typography/typography-tokens';
 import { ListingStatusBadge } from '../../components/listing-status';
-import { createYaoundeLogisMuiTheme } from '../../theme/create-yaoundelogis-mui-theme';
-
-const theme = createYaoundeLogisMuiTheme();
+import type { YaoundeLogisThemeMode } from './surface-tokens';
+import { yaoundeLogisSurfacesByMode } from './surface-tokens';
 
 function YaoundeLogisLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+  const theme = useTheme();
+  const mode = theme.palette.mode as YaoundeLogisThemeMode;
+  const surfaces = yaoundeLogisSurfacesByMode[mode];
+  const markColor = mode === 'dark' ? surfaces.heading : yaoundeLogisBrand.greenDark;
   const scale = size === 'lg' ? 1.4 : size === 'sm' ? 0.85 : 1;
   return (
     <Stack direction="row" alignItems="center" spacing={1.5 * scale}>
@@ -55,7 +56,7 @@ function YaoundeLogisLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
             left: 4 * scale,
             width: 28 * scale,
             height: 22 * scale,
-            border: `3px solid ${yaoundeLogisBrand.greenDark}`,
+            border: `3px solid ${markColor}`,
             borderTop: 'none',
             borderRadius: '0 0 4px 4px',
           }}
@@ -83,7 +84,7 @@ function YaoundeLogisLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
           lineHeight: 1,
         }}
       >
-        <Box component="span" sx={{ color: yaoundeLogisBrand.greenDark }}>
+        <Box component="span" sx={{ color: markColor }}>
           Yaoundé
         </Box>
         <Box component="span" sx={{ color: yaoundeLogisBrand.gold }}>
@@ -95,198 +96,205 @@ function YaoundeLogisLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
 }
 
 function BrandShowcase() {
+  const theme = useTheme();
+  const mode = theme.palette.mode as YaoundeLogisThemeMode;
+  const surfaces = yaoundeLogisSurfacesByMode[mode];
+
   const colorRows: { name: string; hex: string; note: string }[] = [
     { name: 'Vert foncé', hex: yaoundeLogisBrand.greenDark, note: 'Titres, logo' },
     { name: 'Vert', hex: yaoundeLogisBrand.green, note: 'Actions primaires' },
     { name: 'Or', hex: yaoundeLogisBrand.gold, note: 'Accent marque' },
-    { name: 'Crème', hex: yaoundeLogisBrand.cream, note: 'Fond chaud' },
-    { name: 'Gris clair', hex: yaoundeLogisBrand.grayLight, note: 'Sections' },
-    { name: 'Texte', hex: yaoundeLogisBrand.grayDark, note: 'Corps de texte' },
+    { name: 'Fond page', hex: surfaces.bg, note: mode === 'dark' ? 'Dark bg' : 'Blanc' },
+    { name: 'Surface', hex: surfaces.bgRaised, note: mode === 'dark' ? 'Cartes' : 'Papier' },
+    { name: 'Texte', hex: surfaces.text, note: 'Corps de texte' },
   ];
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box sx={{ p: { xs: 2, md: 4 }, maxWidth: 960, mx: 'auto' }}>
-        <Stack spacing={4}>
-          <Box>
-            <YaoundeLogisLogo size="lg" />
-            <Typography sx={{ mt: 1, color: 'text.secondary' }}>
-              Trouvez le logement qui vous correspond
-            </Typography>
-          </Box>
+    <Box sx={{ p: { xs: 2, md: 4 }, maxWidth: 960, mx: 'auto', bgcolor: 'background.default' }}>
+      <Stack spacing={4}>
+        <Box>
+          <YaoundeLogisLogo size="lg" />
+          <Typography sx={{ mt: 1, color: 'text.secondary' }}>
+            Trouvez le logement qui vous correspond
+          </Typography>
+          <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'text.secondary' }}>
+            Mode actuel : <strong>{mode === 'dark' ? 'sombre' : 'clair'}</strong>
+            {' — '}bascule via la barre d’outils Storybook (icône soleil / lune).
+          </Typography>
+        </Box>
 
-          <Box
-            component="img"
-            src="/yaoundelogis-charte-reference.png"
-            alt="Référence charte graphique YaoundéLogis"
-            sx={{
-              width: '100%',
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: 'divider',
-            }}
-          />
+        <Box
+          component="img"
+          src="/yaoundelogis-charte-reference.png"
+          alt="Référence charte graphique YaoundéLogis"
+          sx={{
+            width: '100%',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        />
 
-          <Section title="Couleurs">
-            <Stack direction="row" flexWrap="wrap" gap={2}>
-              {colorRows.map((c) => (
-                <Box key={c.hex} sx={{ width: 140 }}>
-                  <Box
-                    sx={{
-                      height: 72,
-                      bgcolor: c.hex,
-                      borderRadius: 1,
-                      border: '1px solid',
-                      borderColor: 'divider',
-                    }}
-                  />
-                  <Typography variant="subtitle2" sx={{ mt: 1 }}>
-                    {c.name}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {c.hex}
-                  </Typography>
-                  <Typography variant="caption" display="block">
-                    {c.note}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Section>
-
-          <Section title="Typographie — presets contenu">
-            <Stack spacing={2}>
-              {(
-                Object.keys(yaoundeLogisContentPresets) as Array<
-                  keyof typeof yaoundeLogisContentPresets
-                >
-              ).map((key) => (
-                <Box key={key}>
-                  <Typography sx={resolveYaoundeLogisContentStyle(key)}>
-                    {key} — Appartement 2 chambres · 120 000 FCFA / mois
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Section>
-
-          <Section title="Boutons">
-            <Stack direction="row" flexWrap="wrap" gap={2} alignItems="center">
-              <Button variant="contained">Rechercher</Button>
-              <Button variant="outlined">Se connecter</Button>
-              <Link href="#" underline="hover">
-                Voir toutes les annonces →
-              </Link>
-            </Stack>
-          </Section>
-
-          <Section title="Badges / statuts (ListingStatusBadge)">
-            <Stack direction="row" flexWrap="wrap" gap={1}>
-              {(
-                Object.keys(yaoundeLogisListingStatus) as Array<
-                  keyof typeof yaoundeLogisListingStatus
-                >
-              ).map((status) => (
-                <ListingStatusBadge key={status} status={status} />
-              ))}
-            </Stack>
-          </Section>
-
-          <Section title="Champs de recherche">
-            <Stack direction={{ xs: 'column', sm: 'row' }} gap={1.5}>
-              <TextField placeholder="Quartier" size="small" fullWidth />
-              <TextField placeholder="Type de bien" size="small" fullWidth />
-              <TextField placeholder="Budget max (FCFA)" size="small" fullWidth />
-              <Button variant="contained" sx={{ px: 3, flexShrink: 0 }}>
-                Rechercher
-              </Button>
-            </Stack>
-          </Section>
-
-          <Section title="Carte annonce (exemple)">
-            <Card sx={{ maxWidth: 320 }}>
-              <Box sx={{ position: 'relative' }}>
+        <Section title="Couleurs">
+          <Stack direction="row" flexWrap="wrap" gap={2}>
+            {colorRows.map((c) => (
+              <Box key={`${c.name}-${c.hex}`} sx={{ width: 140 }}>
                 <Box
                   sx={{
-                    height: 180,
-                    bgcolor: yaoundeLogisBrand.grayLight,
-                    backgroundImage:
-                      'linear-gradient(135deg, #e8f0ea 0%, #c5d9cc 100%)',
+                    height: 72,
+                    bgcolor: c.hex,
+                    borderRadius: 1,
+                    border: '1px solid',
+                    borderColor: 'divider',
                   }}
                 />
-                <ListingStatusBadge
-                  status="nouveau"
-                  sx={{ position: 'absolute', top: 12, left: 12 }}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 12,
-                    right: 12,
-                    bgcolor: 'white',
-                    borderRadius: '50%',
-                    p: 0.75,
-                    display: 'grid',
-                    placeItems: 'center',
-                  }}
-                >
-                  <Heart size={18} color={yaoundeLogisBrand.greenDark} />
-                </Box>
+                <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                  {c.name}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {c.hex}
+                </Typography>
+                <Typography variant="caption" display="block">
+                  {c.note}
+                </Typography>
               </Box>
-              <CardContent>
-                <Typography sx={resolveYaoundeLogisContentStyle('listingTitle')}>
-                  Appartement 2 chambres à Jouvence
-                </Typography>
-                <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 0.5 }}>
-                  <MapPin size={14} />
-                  <Typography sx={resolveYaoundeLogisContentStyle('listingLocation')}>
-                    Yaoundé, Jouvence
-                  </Typography>
-                </Stack>
-                <Typography sx={{ ...resolveYaoundeLogisContentStyle('listingPrice'), mt: 1 }}>
-                  120 000 FCFA / mois
-                </Typography>
-                <Stack direction="row" spacing={2} sx={{ mt: 1.5 }}>
-                  <Stack direction="row" alignItems="center" spacing={0.5}>
-                    <Bed size={16} />
-                    <Typography variant="caption">2</Typography>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={0.5}>
-                    <ShowerHead size={16} />
-                    <Typography variant="caption">1</Typography>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={0.5}>
-                    <Car size={16} />
-                    <Typography variant="caption">Parking</Typography>
-                  </Stack>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Section>
+            ))}
+          </Stack>
+        </Section>
 
-          <Section title="Valeurs de marque">
-            <Stack direction={{ xs: 'column', sm: 'row' }} gap={2}>
-              <ValueCard
-                icon={<Shield size={28} color={yaoundeLogisBrand.green} />}
-                title="Fiabilité"
-                text="Annonces claires et agents vérifiés."
+        <Section title="Typographie — presets contenu">
+          <Stack spacing={2}>
+            {(
+              Object.keys(yaoundeLogisContentPresets) as Array<
+                keyof typeof yaoundeLogisContentPresets
+              >
+            ).map((key) => (
+              <Box key={key}>
+                <Typography sx={resolveYaoundeLogisContentStyle(key, mode)}>
+                  {key} — Appartement 2 chambres · 120 000 FCFA / mois
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Section>
+
+        <Section title="Boutons">
+          <Stack direction="row" flexWrap="wrap" gap={2} alignItems="center">
+            <Button variant="contained">Rechercher</Button>
+            <Button variant="outlined">Se connecter</Button>
+            <Link href="#" underline="hover">
+              Voir toutes les annonces →
+            </Link>
+          </Stack>
+        </Section>
+
+        <Section title="Badges / statuts (ListingStatusBadge)">
+          <Stack direction="row" flexWrap="wrap" gap={1}>
+            {(
+              Object.keys(yaoundeLogisListingStatus) as Array<
+                keyof typeof yaoundeLogisListingStatus
+              >
+            ).map((status) => (
+              <ListingStatusBadge key={status} status={status} />
+            ))}
+          </Stack>
+        </Section>
+
+        <Section title="Champs de recherche">
+          <Stack direction={{ xs: 'column', sm: 'row' }} gap={1.5}>
+            <TextField placeholder="Quartier" size="small" fullWidth />
+            <TextField placeholder="Type de bien" size="small" fullWidth />
+            <TextField placeholder="Budget max (FCFA)" size="small" fullWidth />
+            <Button variant="contained" sx={{ px: 3, flexShrink: 0 }}>
+              Rechercher
+            </Button>
+          </Stack>
+        </Section>
+
+        <Section title="Carte annonce (exemple)">
+          <Card sx={{ maxWidth: 320 }}>
+            <Box sx={{ position: 'relative' }}>
+              <Box
+                sx={{
+                  height: 180,
+                  bgcolor: 'yaounde.section',
+                  backgroundImage:
+                    mode === 'dark'
+                      ? 'linear-gradient(135deg, #122B22 0%, #1A3D2E 100%)'
+                      : 'linear-gradient(135deg, #e8f0ea 0%, #c5d9cc 100%)',
+                }}
               />
-              <ValueCard
-                icon={<Target size={28} color={yaoundeLogisBrand.green} />}
-                title="Simplicité"
-                text="Recherche rapide par quartier et budget."
+              <ListingStatusBadge
+                status="nouveau"
+                sx={{ position: 'absolute', top: 12, left: 12 }}
               />
-              <ValueCard
-                icon={<Users size={28} color={yaoundeLogisBrand.green} />}
-                title="Proximité"
-                text="Une offre pensée pour Yaoundé."
-              />
-            </Stack>
-          </Section>
-        </Stack>
-      </Box>
-    </ThemeProvider>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 12,
+                  right: 12,
+                  bgcolor: 'background.paper',
+                  borderRadius: '50%',
+                  p: 0.75,
+                  display: 'grid',
+                  placeItems: 'center',
+                }}
+              >
+                <Heart size={18} color={surfaces.link} />
+              </Box>
+            </Box>
+            <CardContent>
+              <Typography sx={resolveYaoundeLogisContentStyle('listingTitle', mode)}>
+                Appartement 2 chambres à Jouvence
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 0.5 }}>
+                <MapPin size={14} color={surfaces.textMuted} />
+                <Typography sx={resolveYaoundeLogisContentStyle('listingLocation', mode)}>
+                  Yaoundé, Jouvence
+                </Typography>
+              </Stack>
+              <Typography sx={{ ...resolveYaoundeLogisContentStyle('listingPrice', mode), mt: 1 }}>
+                120 000 FCFA / mois
+              </Typography>
+              <Stack direction="row" spacing={2} sx={{ mt: 1.5 }}>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <Bed size={16} />
+                  <Typography variant="caption">2</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <ShowerHead size={16} />
+                  <Typography variant="caption">1</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <Car size={16} />
+                  <Typography variant="caption">Parking</Typography>
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Section>
+
+        <Section title="Valeurs de marque">
+          <Stack direction={{ xs: 'column', sm: 'row' }} gap={2}>
+            <ValueCard
+              icon={<Shield size={28} color={surfaces.primary} />}
+              title="Fiabilité"
+              text="Annonces claires et agents vérifiés."
+            />
+            <ValueCard
+              icon={<Target size={28} color={surfaces.primary} />}
+              title="Simplicité"
+              text="Recherche rapide par quartier et budget."
+            />
+            <ValueCard
+              icon={<Users size={28} color={surfaces.primary} />}
+              title="Proximité"
+              text="Une offre pensée pour Yaoundé."
+            />
+          </Stack>
+        </Section>
+      </Stack>
+    </Box>
   );
 }
 
@@ -302,12 +310,12 @@ function Section({
       sx={{
         p: 3,
         borderRadius: 2,
-        bgcolor: yaoundeLogisBrand.grayLight,
+        bgcolor: 'yaounde.section',
         border: '1px solid',
         borderColor: 'divider',
       }}
     >
-      <Typography variant="h5" fontWeight={600} sx={{ mb: 2, color: yaoundeLogisBrand.greenDark }}>
+      <Typography variant="h5" fontWeight={600} sx={{ mb: 2, color: 'text.primary' }}>
         {title}
       </Typography>
       {children}
@@ -345,7 +353,7 @@ const meta: Meta<typeof BrandShowcase> = {
     docs: {
       description: {
         component:
-          'Charte officielle YaoundéLogis — couleurs, typo Poppins, composants UI immobilier.',
+          'Charte officielle YaoundéLogis — clair et sombre. Utiliser la toolbar Storybook pour basculer le thème.',
       },
     },
   },

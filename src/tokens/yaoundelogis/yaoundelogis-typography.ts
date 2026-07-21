@@ -6,6 +6,10 @@ import {
   fontFamilies,
 } from '../typography/typography-tokens';
 import { yaoundeLogisSemantic } from './brand-foundation';
+import {
+  yaoundeLogisSurfacesByMode,
+  type YaoundeLogisThemeMode,
+} from './surface-tokens';
 
 /**
  * Presets contenu immobilier — au-dessus de l’échelle générique.
@@ -16,37 +20,37 @@ export const yaoundeLogisContentPresets = {
     scale: '3xl' as const,
     fontWeight: 'bold' as const,
     lineHeight: 'tight' as const,
-    color: yaoundeLogisSemantic.heading,
+    colorKey: 'heading' as const,
   },
   sectionTitle: {
     scale: 'xl' as const,
     fontWeight: 'semibold' as const,
     lineHeight: 'tight' as const,
-    color: yaoundeLogisSemantic.heading,
+    colorKey: 'heading' as const,
   },
   listingTitle: {
     scale: 'lg' as const,
     fontWeight: 'semibold' as const,
     lineHeight: 'tight' as const,
-    color: yaoundeLogisSemantic.heading,
+    colorKey: 'heading' as const,
   },
   listingPrice: {
     scale: 'md' as const,
     fontWeight: 'bold' as const,
     lineHeight: 'normal' as const,
-    color: yaoundeLogisSemantic.price,
+    colorKey: 'price' as const,
   },
   listingLocation: {
     scale: 'sm' as const,
     fontWeight: 'regular' as const,
     lineHeight: 'normal' as const,
-    color: '#5C6B63',
+    colorKey: 'textMuted' as const,
   },
   legalCaption: {
     scale: 'xs' as const,
     fontWeight: 'regular' as const,
     lineHeight: 'normal' as const,
-    color: '#6B7280',
+    colorKey: 'textMuted' as const,
   },
 } as const;
 
@@ -55,19 +59,28 @@ export type YaoundeLogisContentPresetKey =
 
 export function resolveYaoundeLogisContentStyle(
   preset: YaoundeLogisContentPresetKey,
+  mode: YaoundeLogisThemeMode = 'light',
 ): CSSProperties {
   const p = yaoundeLogisContentPresets[preset];
+  const surfaces = yaoundeLogisSurfacesByMode[mode];
   return {
     fontFamily: fontFamilies.sans,
     fontSize: typeScale[p.scale].fontSize,
     fontWeight: fontWeights[p.fontWeight],
     lineHeight: lineHeights[p.lineHeight],
-    color: p.color,
+    color: surfaces[p.colorKey],
     margin: 0,
   };
 }
 
 export const yaoundeLogisFontFamily = fontFamilies.sans;
+
+/** @deprecated Couleurs light uniquement — préférer `resolveYaoundeLogisContentStyle(preset, mode)` */
+export const yaoundeLogisContentColorsLight = {
+  heading: yaoundeLogisSemantic.heading,
+  price: yaoundeLogisSemantic.price,
+  location: '#5C6B63',
+} as const;
 
 export function yaoundeLogisTypographyToStyleObject(): Record<string, string> {
   return {
