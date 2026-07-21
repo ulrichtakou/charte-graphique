@@ -17,7 +17,7 @@ const meta: Meta<typeof Alert> = {
     docs: {
       description: {
         component:
-          'Alert is persistent and contextual feedback. Unlike toast, alert is usually inline or banner-based and always includes manual close action.',
+          "Alerte persistante et contextuelle dans la page. Contrairement au toast, l'alerte est inline ou en bannière et inclut toujours une action de fermeture manuelle.",
       },
     },
   },
@@ -35,14 +35,14 @@ const meta: Meta<typeof Alert> = {
     onClose: { action: 'close clicked' },
   },
   args: {
-    title: 'Connection issue',
-    message: 'Your last action was not saved. Please retry.',
+    title: 'Annonce non publiée',
+    message: "Votre annonce n'a pas été enregistrée. Veuillez réessayer.",
     semantic: 'warning',
     variant: 'soft',
     layout: 'multiline',
     showIcon: true,
-    ctaLabel: 'Retry',
-    linkLabel: 'Learn more',
+    ctaLabel: 'Réessayer',
+    linkLabel: 'En savoir plus',
   },
 };
 
@@ -60,11 +60,11 @@ export const ObjectiveAndUseCases: Story = {
         summary, environment warning, permissions issue, billing notice, migration notice.
       </Box>
       <Alert
-        title="Billing warning"
-        message="Your payment method expires soon. Update it to avoid service interruption."
+        title="Moyen de paiement expirant"
+        message="Votre moyen de paiement expire bientôt. Mettez-le à jour pour éviter toute interruption."
         semantic="warning"
         variant="soft"
-        ctaLabel="Update method"
+        ctaLabel="Mettre à jour"
         onClose={() => undefined}
       />
     </Box>
@@ -84,8 +84,8 @@ export const VariantsAndSemantics: Story = {
             {SEMANTICS.map((semantic) => (
               <Alert
                 key={`${variant}-${semantic}`}
-                title={`${semantic} alert`}
-                message="Message for contextual feedback."
+                title={`Alerte ${semantic}`}
+                message="Message de retour contextuel pour l'utilisateur."
                 semantic={semantic}
                 variant={variant}
                 onClose={() => undefined}
@@ -103,16 +103,16 @@ export const StructureAndActions: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[3], maxWidth: 900 }}>
       <Alert
-        title="With CTA + link + close"
-        message="Manual close is required for alert."
+        title="Annonce en attente de validation"
+        message="Votre annonce est en cours de vérification par notre équipe."
         semantic="info"
-        ctaLabel="Retry"
-        linkLabel="Details"
+        ctaLabel="Voir l'annonce"
+        linkLabel="Détails"
         onClose={() => undefined}
       />
       <Alert
-        title="With close only"
-        message="Use this for passive but persistent information."
+        title="Informations complémentaires requises"
+        message="Veuillez compléter votre profil agent pour publier des annonces."
         semantic="neutral"
         variant="outline"
         onClose={() => undefined}
@@ -126,24 +126,24 @@ export const LayoutVariants: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[3] }}>
       <Alert
-        title="Single line with actions"
-        message="Deployment paused."
+        title="Annonce expirée"
+        message="Votre annonce a expiré."
         layout="single-line"
         semantic="warning"
-        ctaLabel="Retry"
-        linkLabel="Logs"
+        ctaLabel="Renouveler"
+        linkLabel="Historique"
         onClose={() => undefined}
       />
       <Alert
-        title="Multiline with icon"
-        message="This alert uses multiline layout. It supports longer contextual explanation while staying persistent."
+        title="Annonce supprimée"
+        message="Cette annonce a été retirée de la plateforme. Contactez le support si vous pensez qu'il s'agit d'une erreur."
         layout="multiline"
         semantic="danger"
         onClose={() => undefined}
       />
       <Alert
-        title="Multiline without icon"
-        message="Icons are optional, content still communicates meaning."
+        title="Annonce publiée avec succès"
+        message="Votre logement est maintenant visible par les locataires."
         showIcon={false}
         semantic="success"
         onClose={() => undefined}
@@ -157,22 +157,22 @@ export const PositioningExamples: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[4], maxWidth: 980 }}>
       <Box sx={{ display: 'grid', gap: spacing[2] }}>
-        <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.primary }}>Inline in page flow</Box>
+        <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.primary }}>Intégrée dans la page</Box>
         <Box sx={{ border: '1px dashed #d1d5db', p: spacing[3], display: 'grid', gap: spacing[3] }}>
-          <Box sx={{ fontSize: typeScale.sm.fontSize }}>Profile settings</Box>
+          <Box sx={{ fontSize: typeScale.sm.fontSize }}>Paramètres du profil agent</Box>
           <Alert
-            title="Unsaved changes"
-            message="Save or discard before leaving this section."
+            title="Modifications non enregistrées"
+            message="Enregistrez ou annulez avant de quitter cette section."
             semantic="warning"
             onClose={() => undefined}
           />
         </Box>
       </Box>
       <Box sx={{ display: 'grid', gap: spacing[2] }}>
-        <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.primary }}>Top-page banner</Box>
+        <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.primary }}>Bannière haut de page</Box>
         <Alert
-          title="Scheduled maintenance"
-          message="The platform will be read-only from 02:00 to 02:30 UTC."
+          title="Maintenance planifiée"
+          message="La plateforme sera en lecture seule de 02h00 à 02h30 (heure de Yaoundé)."
           semantic="info"
           variant="outline"
           onClose={() => undefined}
@@ -187,15 +187,14 @@ export const Accessibility: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[3], maxWidth: 860 }}>
       <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.secondary }}>
-        Non-urgent alerts should use polite announcements (`role="status"`). Urgent alerts can use
-        `role="alert"` with assertive live region. Keep close control keyboard-reachable and keep
-        enough time for users to act when actions are present.
+        Les alertes non urgentes utilisent `role="status"`. Les alertes urgentes utilisent `role="alert"`.
+        Le bouton de fermeture doit être accessible au clavier.
       </Box>
       <Alert
-        title="A11y example (urgent)"
-        message="This variant simulates critical content and should be announced immediately."
+        title="Exemple accessibilité (urgent)"
+        message="Ce contenu critique doit être annoncé immédiatement aux lecteurs d'écran."
         semantic="danger"
-        ctaLabel="Resolve"
+        ctaLabel="Résoudre"
         onClose={() => undefined}
       />
     </Box>

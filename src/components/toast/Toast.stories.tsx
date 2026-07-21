@@ -18,7 +18,7 @@ const meta: Meta<typeof Toast> = {
     docs: {
       description: {
         component:
-          'Toast is non-blocking and ephemeral feedback. Unlike alert, toast is usually auto-dismissed, stacked and positioned around viewport corners.',
+          'Notification éphémère et non bloquante. Contrairement à l\'alerte, le toast se ferme automatiquement et s\'empile en coin de l\'écran.',
       },
     },
   },
@@ -37,13 +37,13 @@ const meta: Meta<typeof Toast> = {
     onClose: { action: 'close clicked' },
   },
   args: {
-    title: 'Saved',
-    message: 'Your settings were updated.',
+    title: 'Annonce publiée',
+    message: 'Votre annonce est maintenant visible sur YaoundéLogis.',
     semantic: 'success',
     variant: 'soft',
     showIcon: true,
-    ctaLabel: 'Undo',
-    linkLabel: 'Details',
+    ctaLabel: 'Annuler',
+    linkLabel: 'Voir l\'annonce',
     autoDismissMs: 4000,
     pauseOnHover: true,
   },
@@ -59,14 +59,13 @@ export const ObjectiveAndUseCases: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[3] }}>
       <Box sx={{ fontSize: typeScale.sm.fontSize, color: textStateColors.secondary }}>
-        Toast objective: quick, non-blocking feedback for asynchronous outcomes (saved, synced,
-        failed, copied, queued).
+        Objectif du toast : retour rapide et non bloquant pour des actions asynchrones (annonce publiée, message envoyé, erreur réseau, copie du lien).
       </Box>
       <Toast
-        title="Profile updated"
-        message="Changes are available across your workspace."
+        title="Profil mis à jour"
+        message="Vos informations sont maintenant visibles par les locataires."
         semantic="success"
-        ctaLabel="Undo"
+        ctaLabel="Annuler"
         onClose={() => undefined}
       />
     </Box>
@@ -86,8 +85,8 @@ export const VariantsAndSemantics: Story = {
             {SEMANTICS.map((semantic) => (
               <Toast
                 key={`${variant}-${semantic}`}
-                title={`${semantic} toast`}
-                message="Short asynchronous feedback."
+                title={`Notification ${semantic}`}
+                message="Retour rapide sur une action YaoundéLogis."
                 semantic={semantic}
                 variant={variant}
                 onClose={() => undefined}
@@ -105,23 +104,23 @@ export const StructureAndActions: Story = {
   render: () => (
     <Box sx={{ display: 'grid', gap: spacing[3] }}>
       <Toast
-        title="With CTA + link + close"
-        message="Toast supports optional actions and optional close."
+        title="Message envoyé au propriétaire"
+        message="Votre demande a bien été transmise. Réponse sous 24h."
         semantic="info"
-        ctaLabel="Retry"
-        linkLabel="Details"
+        ctaLabel="Annuler"
+        linkLabel="Détails"
         onClose={() => undefined}
       />
       <Toast
-        title="Without actions"
-        message="Minimal toast for lightweight confirmation."
+        title="Lien copié"
+        message="Le lien de l'annonce a été copié dans le presse-papier."
         semantic="neutral"
         variant="outline"
         onClose={() => undefined}
       />
       <Toast
-        title="No icon"
-        message="Icon can be omitted if context already communicates intent."
+        title="Favori ajouté"
+        message="Ce logement a été ajouté à vos favoris."
         showIcon={false}
         semantic="success"
         onClose={() => undefined}
@@ -141,7 +140,7 @@ function AutoDismissDemo() {
   return (
     <Box sx={{ display: 'grid', gap: spacing[2] }}>
       <Box sx={{ fontSize: typeScale.xs.fontSize, color: textStateColors.secondary }}>
-        Auto-dismiss after 3.5s. Re-open with the button.
+        Fermeture automatique après 3,5s. Rouvrir avec le bouton.
       </Box>
       <Box
         component="button"
@@ -149,7 +148,7 @@ function AutoDismissDemo() {
         onClick={() => setOpen(true)}
         style={{ width: 100, height: 32, cursor: 'pointer' }}
       >
-        Trigger
+        Déclencher
       </Box>
       {open ? (
         <Toast

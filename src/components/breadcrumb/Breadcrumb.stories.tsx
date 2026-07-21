@@ -10,8 +10,8 @@ import { spacing } from '../../tokens/spacing/spacing-tokens';
 import { fontWeights, typeScale } from '../../tokens/typography/typography-tokens';
 import { Breadcrumb, BreadcrumbStep } from './Breadcrumb';
 
-const STEP_ICONS: [LucideIcon, LucideIcon, LucideIcon] = [Home, FolderOpen, FileText];
-const STEP_LABELS = ['Home', 'Folder', 'Document'] as const;
+const STEP_ICONS: [LucideIcon, LucideIcon, LucideIcon] = [Home, Building2, FileText];
+const STEP_LABELS = ['Accueil', 'Annonces', 'Détail'] as const;
 
 function breadcrumbForHue(hue: PrimitiveHue) {
   return (
@@ -53,9 +53,9 @@ export const Playground: Story = {
   render: (args) => (
     <Box sx={{ maxWidth: 560 }}>
       <Breadcrumb {...args}>
-        <BreadcrumbStep hue="blue" icon={Home} label="Home" href="#h" />
-        <BreadcrumbStep hue="violet" icon={Layers} label="Library" href="#l" />
-        <BreadcrumbStep hue="green" icon={FileText} label="Current file" current />
+        <BreadcrumbStep hue="green" icon={Home} label="Accueil" href="#h" />
+        <BreadcrumbStep hue="green" icon={Building2} label="Annonces" href="#l" />
+        <BreadcrumbStep hue="green" icon={FileText} label="Appartement Jouvence" current />
       </Breadcrumb>
     </Box>
   ),

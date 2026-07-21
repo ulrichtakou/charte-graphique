@@ -48,13 +48,13 @@ function TwoOptionRow({ variant }: { variant: RadioVariant }) {
         {variant}
       </Typography>
       <RadioFieldGroup
-        legend={`${variant} · payment method`}
+        legend={`${variant} · mode de paiement`}
         name={`radio-variant-${variant}`}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        <Radio variant={variant} value="a" label="Card" />
-        <Radio variant={variant} value="b" label="Bank transfer" />
+        <Radio variant={variant} value="a" label="Mobile Money" />
+        <Radio variant={variant} value="b" label="Virement bancaire" />
       </RadioFieldGroup>
     </Box>
   );
@@ -69,8 +69,8 @@ function DisabledOptionsRow({ variant }: { variant: RadioVariant }) {
       value={v}
       onChange={(e) => setV(e.target.value)}
     >
-      <Radio variant={variant} value="a" label="Available" />
-      <Radio variant={variant} value="b" label="Unavailable" disabled />
+      <Radio variant={variant} value="a" label="Disponible" />
+      <Radio variant={variant} value="b" label="Indisponible" disabled />
     </RadioFieldGroup>
   );
 }
@@ -85,11 +85,11 @@ function ValidationRow({ variant }: { variant: RadioVariant }) {
       value={v}
       onChange={(e) => setV(e.target.value)}
       {...(invalid
-        ? { error: true, helperText: 'Please select a plan to continue.' }
+        ? { error: true, helperText: 'Veuillez sélectionner un type de bien pour continuer.' }
         : { error: false })}
     >
-      <Radio variant={variant} value="basic" label="Basic" invalid={invalid} />
-      <Radio variant={variant} value="pro" label="Pro" invalid={invalid} />
+      <Radio variant={variant} value="appartement" label="Appartement" invalid={invalid} />
+      <Radio variant={variant} value="villa" label="Villa" invalid={invalid} />
     </RadioFieldGroup>
   );
 }
@@ -103,7 +103,7 @@ const meta: Meta<typeof Radio> = {
     docs: {
       description: {
         component:
-          'Token-styled radio for mutually exclusive choices. Use inside `RadioFieldGroup` (or MUI `RadioGroup`) so only one option is selected per group.',
+          'Bouton radio stylé pour des choix mutuellement exclusifs. À utiliser dans `RadioFieldGroup` (ou `RadioGroup` MUI) pour garantir qu\'une seule option est sélectionnée.',
       },
     },
   },
@@ -119,12 +119,12 @@ const meta: Meta<typeof Radio> = {
     fullWidth: { control: 'boolean' },
   },
   args: {
-    label: 'Standard shipping',
-    description: 'Arrives in 3–5 business days.',
+    label: 'Appartement',
+    description: 'Logement idéal pour 1 à 3 personnes.',
     helperText: '',
     invalid: false,
     disabled: false,
-    value: 'standard',
+    value: 'appartement',
     variant: 'default',
     density: 'md',
     fullWidth: false,
@@ -136,17 +136,17 @@ type Story = StoryObj<typeof Radio>;
 
 export const Playground: Story = {
   render: function PlaygroundRender(args) {
-    const [value, setValue] = useState('standard');
+    const [value, setValue] = useState('appartement');
     return (
       <Box sx={{ maxWidth: 420 }}>
         <RadioFieldGroup
-          legend="Delivery"
-          name="playground-delivery"
+          legend="Type de bien"
+          name="playground-type-bien"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         >
           <Radio
-            value="standard"
+            value="appartement"
             label={args.label}
             description={args.description}
             helperText={args.helperText || undefined}
@@ -157,9 +157,9 @@ export const Playground: Story = {
             fullWidth={args.fullWidth}
           />
           <Radio
-            value="express"
-            label="Express"
-            description="Extra fee applies."
+            value="villa"
+            label="Villa"
+            description="Frais supplémentaires applicables."
             variant={args.variant}
             density={args.density}
           />
@@ -176,18 +176,16 @@ export const RoleAndStructure: Story = {
     return (
       <Stack spacing={spacing[3]} sx={{ maxWidth: 720 }}>
         <Typography variant="body2" color="text.secondary">
-          Each option exposes <code>role=&quot;radio&quot;</code> and participates in a single
-          selection group via <code>RadioFieldGroup</code> (<code>fieldset</code> +{' '}
-          <code>RadioGroup</code>). Labels are associated with their controls.
+          Chaque option expose <code>role=&quot;radio&quot;</code> et fait partie d'un groupe de sélection unique via <code>RadioFieldGroup</code>.
         </Typography>
         <RadioFieldGroup
-          legend="Billing cadence"
-          name="billing-cadence"
+          legend="Type de contrat"
+          name="type-contrat"
           value={v}
           onChange={(e) => setV(e.target.value)}
         >
-          <Radio value="monthly" label="Monthly" description="Pay each month." />
-          <Radio value="annual" label="Annual" description="One invoice per year." />
+          <Radio value="monthly" label="Mensuel" description="Paiement chaque mois." />
+          <Radio value="annual" label="Annuel" description="Une facture par an." />
         </RadioFieldGroup>
       </Stack>
     );
