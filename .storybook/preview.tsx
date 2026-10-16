@@ -14,10 +14,15 @@ import { yaoundeLogisSurfacesToStyleObject } from '../src/tokens/yaoundelogis/su
 import type { YaoundeLogisThemeMode } from '../src/tokens/yaoundelogis/surface-tokens';
 import '../src/styles/yaoundelogis-global.css';
 
-function ThemeCanvasShell({ children }: { children: React.ReactNode }) {
-  const [globals, updateGlobals] = useGlobals();
-  const mode = ((globals.theme as YaoundeLogisThemeMode) || 'light') as YaoundeLogisThemeMode;
-
+function ThemeCanvasShell({
+  children,
+  mode,
+  updateGlobals,
+}: {
+  children: React.ReactNode;
+  mode: YaoundeLogisThemeMode;
+  updateGlobals: (globals: Record<string, unknown>) => void;
+}) {
   const tokenStyles = {
     ':root': {
       ...yaoundeLogisTokensToStyleObject(),
@@ -76,11 +81,16 @@ function ThemeCanvasShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-const withYaoundeLogisTheme: Decorator = (Story) => (
-  <ThemeCanvasShell>
-    <Story />
-  </ThemeCanvasShell>
-);
+const withYaoundeLogisTheme: Decorator = (Story) => {
+  const [globals, updateGlobals] = useGlobals();
+  const mode = ((globals.theme as YaoundeLogisThemeMode) || 'light') as YaoundeLogisThemeMode;
+
+  return (
+    <ThemeCanvasShell mode={mode} updateGlobals={updateGlobals}>
+      <Story />
+    </ThemeCanvasShell>
+  );
+};
 
 const withRouter: Decorator = (Story) => (
   <MemoryRouter>

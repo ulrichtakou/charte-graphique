@@ -1,3 +1,5 @@
+'use client';
+
 export * from './tokens';
 export * from './lib/utils';
 export * from './hooks';
@@ -30,3 +32,5 @@ export * from './components/state-badge';
 export * from './components/classification-chip';
 export * from './components/detail';
 export * from './components/listing-status';
+export * from './components/yaoundelogis-logo';
+export * from './components/yaoundelogis-loader';

@@ -97,9 +97,10 @@ export function YaoundeLogisThemeProvider(props: YaoundeLogisThemeProviderProps)
   } = props;
   const useStore = useMemo(() => getStore(storageKey), [storageKey]);
   const { colorMode, setColorMode, toggleColorMode } = useStore();
-  const [systemMode, setSystemMode] = useState<YaoundeLogisThemeMode>(() =>
-    resolveSystemMode(),
-  );
+  // Fixed default (not computed from matchMedia) so the first client render
+  // matches the server-rendered HTML; the real system mode is applied after
+  // mount below, avoiding a hydration mismatch.
+  const [systemMode, setSystemMode] = useState<YaoundeLogisThemeMode>('light');
 
   useEffect(() => {
     if (defaultMode && colorMode === 'system') {
@@ -111,6 +112,7 @@ export function YaoundeLogisThemeProvider(props: YaoundeLogisThemeProviderProps)
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
+    setSystemMode(media.matches ? 'dark' : 'light');
     const listener = (e: MediaQueryListEvent) => {
       setSystemMode(e.matches ? 'dark' : 'light');
     };
